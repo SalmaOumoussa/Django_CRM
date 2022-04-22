@@ -3,6 +3,10 @@ from django.http import HttpResponse
 from .models import Lead, Agent
 from .forms import LeadForm,LeadModelForm
 
+
+
+def landing_page(request):
+    return render(request, 'landing.html')
 #Get all Leads
 def lead_list(request):
   #  return HttpResponse("hellooo")

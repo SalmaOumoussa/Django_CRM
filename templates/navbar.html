@@ -1,0 +1,51 @@
+{% block content %}
+<header
+  class="flex flex-col sm:flex-row items-center justify-between py-6 relative"
+>
+  {% comment %}
+  <h3 class="text-2xl font-bold uppercase text-blue-900">Logo</h3>
+  {% endcomment %}
+  <a
+    class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+      viewBox="0 0 24 24"
+    >
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+    </svg>
+    <span class="ml-3 text-xl">DJ_CRM</span>
+  </a>
+  <nav class="hidden md:flex text-lg">
+    <a href="#" class="text-gray-800 hover:text-purple-300 py-3 px-6">Home</a>
+    <a href="#" class="text-gray-800 hover:text-purple-300 py-3 px-6"
+      >Services</a
+    >
+    <a href="#" class="text-gray-800 hover:text-purple-300 py-3 px-6">About</a>
+    <a
+      href="{% url 'leads:lead_list' %}"
+      class="text-gray-800 hover:text-purple-300 py-3 px-6"
+      >Leads</a
+    >
+    <a href="#" class="text-gray-800 hover:text-purple-300 py-3 px-6"
+      >Sign Up</a
+    >
+    <a
+      href="#"
+      class="bg-purple-200 hover:bg-purple-300 rounded-full uppercase text-purple-700 py-3 px-6"
+      >Login</a
+    >
+  </nav>
+  <button class="flex md:hidden flex-col absolute top-0 right-0 p-4 mt-5">
+    <span class="w-5 h-px mb-1 bg-orange-500"></span>
+    <span class="w-5 h-px mb-1 bg-orange-500"></span>
+    <span class="w-5 h-px mb-1 bg-orange-500"></span>
+  </button>
+</header>
+{% endblock %}
