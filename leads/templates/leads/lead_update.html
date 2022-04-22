@@ -7,8 +7,13 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Second page</h1>
+    <a href="/leads">Go back to leads</a>
+    <hr />
+    <h1>Update lead</h1>
+    <form method="post">
+      {% csrf_token %} {{form.as_p}}
 
-    {{leads}}
+      <button type="submit">Update lead</button>
+    </form>
   </body>
 </html>
