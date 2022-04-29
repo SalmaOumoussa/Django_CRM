@@ -119,5 +119,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
 
+]
+STATIC_ROOT = "static_root"
 AUTH_USER_MODEL = 'leads.User'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_HOST_USER = '652259cd21d227'
+# EMAIL_HOST_PASSWORD = '4d680b76019f7a'
+# EMAIL_PORT = '2525'
+LOGIN_REDIRECT_URL = "/leads"
