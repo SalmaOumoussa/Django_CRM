@@ -5,7 +5,7 @@
   {% comment %}
   <h3 class="text-2xl font-bold uppercase text-blue-900">Logo</h3>
   {% endcomment %}
-  <a
+  <a href="{% url 'leads:lead_list' %}"
     class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
   >
     <svg
@@ -39,7 +39,7 @@
       class="bg-purple-200 hover:bg-purple-300 rounded-full uppercase text-purple-700 py-3 px-6"
       >Logout</a
     >
-    <a href="#" class="text-gray-800 hover:text-purple-300 py-3 px-6">Agents</a>
+    <a href="{% url 'agents:agent_list' %}" class="text-gray-800 hover:text-purple-300 py-3 px-6">Agents</a>
     <a
       href="{% url 'leads:lead_list' %}"
       class="text-gray-800 hover:text-purple-300 py-3 px-6"
