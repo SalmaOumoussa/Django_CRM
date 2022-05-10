@@ -1,10 +1,25 @@
 {% extends 'base.html' %} {% block content %}
-<a href="{% url 'leads:lead_list' %}">Go back to leads</a>
-<hr />
-<h1>Update lead</h1>
-<form method="post">
-  {% csrf_token %} {{form.as_p}}
+<div class="p-6">
+  <div class="bg-white flex flex-col font-sans">
+    <div class="container mx-auto px-8">
+      {%include "navbar.html"%}
+      <div class="mx-auto">
+        <div class="py-1 border-b border-gray-200">
+          <a
+            href="{% url 'leads:lead_list' %}"
+            class="uppercase rounded text-xl text-gray-300 pointer"
+            >Go back to leads</a
+          >
+          <hr />
+          <h1>Update lead</h1>
+          <form method="post">
+            {% csrf_token %} {{form.as_p}}
 
-  <button type="submit">Update lead</button>
-</form>
-{% endblock %}
+            <button type="submit">Update lead</button>
+          </form>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,10 +13,6 @@ class CustomUserCreationForm(UserCreationForm):
         field_classes = {'username': UsernameField}
 
 
-
-
-
-
 class LeadModelForm(forms.ModelForm):
     class Meta:
         model =Lead
@@ -32,3 +28,4 @@ class LeadForm(forms.Form):
     first_name = forms.CharField()
     last_name = forms.CharField()
     age = forms.IntegerField(min_value=0)
+    

@@ -3,7 +3,11 @@
   <div class="bg-white flex flex-col font-sans">
     <div class="container mx-auto px-8">
       {%include "navbar.html"%}
-      <a href="{% url 'leads:lead_list' %}">Go back to leads</a>
+      <a
+        href="{% url 'leads:lead_list' %}"
+        class="uppercase rounded text-xl text-gray-300 pointer"
+        >Go back to leads</a
+      >
       <hr />
       <!-- component -->
       <section class="text-gray-700 body-font overflow-hidden bg-white">

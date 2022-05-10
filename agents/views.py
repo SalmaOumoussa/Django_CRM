@@ -10,7 +10,8 @@ class AgentListView(LoginRequiredMixin, generic.ListView):
     template_name = "agents/agent_list.html"
     
     def get_queryset(self):
-        return Agent.objects.all()
+        organization = self.request.user.userprofile
+        return Agent.objects.filter(organization =organization )
 
 class AgentCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "agents/agent_create.html"
@@ -28,28 +29,34 @@ class AgentCreateView(LoginRequiredMixin, generic.CreateView):
 
 class AgentDetailView(LoginRequiredMixin,generic.DetailView):
     template_name = "agents/agent_detail.html"
-    
+    context_object_name = "agent"
     def get_queryset(self):
         return Agent.objects.all()
     
 
-# class AgentDeleteView(LoginRequiredMixin,generic.DeleteView):
-#     template_name = "agents/agent_delete.html"
-#     queryset =Agent.objects.all()
-
-#     def get_success_url(self):
-#         return "/Agents"
-        
-# class AgentUpdateView(LoginRequiredMixin,generic.UpdateView):
-#     template_name = "agents/agent_update.html"
-#     queryset =Agent.objects.all()
-#     form_class = AgentModelForm
-#     context_object_name = "agent"
+class AgentUpdateView(LoginRequiredMixin,generic.UpdateView):
+    template_name = "agents/agent_update.html"
+    queryset =Agent.objects.all()
+    form_class = AgentModelForm
+    context_object_name = "agent"
     
-#     def get_success_url(self):
-#          return "/Agents"
+    def get_queryset(self):
+        organization = self.request.user.userprofile
+        return Agent.objects.filter(organization =organization )
+
+    def get_success_url(self):
+         return "/Agents"
 
 
 
+class AgentDeleteView(LoginRequiredMixin,generic.DeleteView):
+    template_name = "agents/agent_delete.html"
+    context_object_name = "agent"
 
+    def get_success_url(self):
+        return reverse("agents:agent_list")
+        
+    def get_queryset(self):
+        organization = self.request.user.userprofile
+        return Agent.objects.filter(organization =organization )
 # #Lead detail view based on class

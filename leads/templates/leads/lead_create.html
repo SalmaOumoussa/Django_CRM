@@ -1,12 +1,26 @@
 {% extends 'base.html' %} {% block content %}
+<div class="p-6">
+  <div class="bg-white flex flex-col font-sans">
+    <div class="container mx-auto px-8">
+      {%include "navbar.html"%}
+      <div class="mx-auto">
+        <div class="py-1 border-b border-gray-200">
+          <a href="/leads">Go back to leads</a>
+          <hr />
 
-<a href="/leads">Go back to leads</a>
-<hr />
+          <h1>Create a new lead</h1>
+          <form method="post">
+            {% csrf_token %} {{form.as_p}}
 
-<h1>Create a new lead</h1>
-<form method="post">
-  {% csrf_token %} {{form.as_p}}
-
-  <button type="submit">Create a new lead</button>
-</form>
-{% endblock %}
+            <button
+              type="submit text-white bg-blue-500 hover:bg-blue-600 px-5 py-2 rounded-md"
+            >
+              Create a new lead
+            </button>
+          </form>
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

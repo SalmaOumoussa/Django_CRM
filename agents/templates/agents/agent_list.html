@@ -134,12 +134,12 @@
                         >
                       </a>
                       <a
-                        href="#"
+                        href="{% url 'agents:agent_update' agent.pk %}""
                         class="text-yellow-400 hover:text-gray-100 mx-2"
                       >
                         <i class="material-icons-outlined text-base">edit</i>
                       </a>
-                      <a href="#" class="text-red-400 hover:text-gray-100 ml-2">
+                      <a href="{% url 'agents:agent_delete' agent.pk %}"" class="text-red-400 hover:text-gray-100 ml-2">
                         <i class="material-icons-round text-base"
                           >delete_outline</i
                         >
