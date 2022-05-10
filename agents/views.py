@@ -22,8 +22,19 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         agent = form.save(commit=False)
-        agent.organization = self.request.user.userprofile
-        agent.save()
+        user.is_agent = True
+        user.is_organisor = False
+        user.save()
+        Agent.objects.create(
+            user=user,
+            organization=self.request.user.userprofile
+        )
+        send_mail(
+            subject="You are invited to be an agent",
+            message="You were added as an agent on DJCRM. Please come login to start working.",
+            from_email="admin@test.com",
+            recipient_list=[user.email]
+        )
         return super(AgentCreateView, self).form_valid(form)
 
 
