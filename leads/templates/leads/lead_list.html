@@ -36,6 +36,7 @@
                 placeholder="search..."
               />
             </div>
+            {% if request.user.id_organisor %}
             <div class="ml-10 space-x-8 lg:ml-40">
               <a
                 href="{% url 'leads:lead_create' %}"
@@ -45,6 +46,7 @@
                 Create a new Lead
               </a>
             </div>
+            {% endif %}
           </div>
         </div>
         <div>

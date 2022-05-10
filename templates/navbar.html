@@ -39,7 +39,9 @@
       class="bg-purple-200 hover:bg-purple-300 rounded-full uppercase text-purple-700 py-3 px-6"
       >Logout</a
     >
+    {% if request.user.is_organisor %}
     <a href="{% url 'agents:agent_list' %}" class="text-gray-800 hover:text-purple-300 py-3 px-6">Agents</a>
+    {% endif %}
     <a
       href="{% url 'leads:lead_list' %}"
       class="text-gray-800 hover:text-purple-300 py-3 px-6"
