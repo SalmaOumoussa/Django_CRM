@@ -197,13 +197,8 @@ class LeadUpdateView(LoginRequiredMixin,generic.UpdateView):
     def get_queryset(self):
         user = self.request.user
         #initial queryset of leads for the entire organization 
-        if user.is_organisor:
-            queryset = Lead.objects.filter(organization = user.userprofile )
-        else:
-            queryset = Lead.objects.filter(organization = user.agent.organization )
-        # filtrer  for the agentlogged in 
-            queryset = queryset.filter(agent__user=user)
-        return queryset
+        return Lead.objects.filter(organization = user.userprofile )
+         
 
 #delete lead
 def lead_delete(request,pk):
@@ -218,14 +213,10 @@ class LeadDeleteView(LoginRequiredMixin,generic.DeleteView):
 
     def get_success_url(self):
         return "/leads"
+    
     def get_queryset(self):
         user = self.request.user
         #initial queryset of leads for the entire organization 
-        if user.is_organisor:
-            queryset = Lead.objects.filter(organization = user.userprofile )
-        else:
-            queryset = Lead.objects.filter(organization = user.agent.organization )
-        # filtrer  for the agentlogged in 
-            queryset = queryset.filter(agent__user=user)
-        return queryset
+        return Lead.objects.filter(organization = user.userprofile )
+        
         

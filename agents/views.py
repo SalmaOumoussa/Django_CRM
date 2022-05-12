@@ -1,4 +1,4 @@
-
+import random
 from django.views import generic
 from django.shortcuts import reverse
 from leads.models import Agent
@@ -24,6 +24,7 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         agent = form.save(commit=False)
         user.is_agent = True
         user.is_organisor = False
+        user.set_password(f"{random.randint(0,100000)}")
         user.save()
         Agent.objects.create(
             user=user,
