@@ -22,22 +22,17 @@ class Agent(models.Model):
     
 
 class Lead(models.Model):
-    # SOURCE_CHOICES = (
-    #     ('Youtube','Youtube'),
-    #     ('Google','Google'),
-    #     ('Newsletter','Newsletter'),
-    # )
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     age = models.IntegerField(default=0)
     organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     agent = models.ForeignKey("Agent", null=True, blank=True, on_delete=models.SET_NULL )
     category = models.ForeignKey(UserProfile,related_name='categoty', null=True, blank=True, on_delete=models.SET_NULL )
-    date_added = models.DateTimeField(UserProfile,auto_now_add=True)
-    # phoned =models.BooleanField(default=False)
-    # sources = models.CharField(choices=SOURCE_CHOICES, max_length=100)
-    # profile_picture = models.ImageField(blank=True, null=True)
-    # special_files =models.FileField(blank=True, null=True)
+    description = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    phone_number = models.CharField(max_length=20)
+    email = models.EmailField()
+    
     def __str__(self):
         return f"{self.first_name}{self.last_name}"
     

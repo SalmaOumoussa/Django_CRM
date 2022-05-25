@@ -18,10 +18,10 @@ class SignupView(generic.CreateView):
 # Landing page class Based View
 class LandingPageView(generic.TemplateView):
     template_name = 'landing.html'
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect("dashboard")
-        return super().dispatch(request, *args, **kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated:
+    #         return redirect("dashboard")
+    #     return super().dispatch(request, *args, **kwargs)
 
 #Landing page function based view
 def landing_page(request):
@@ -122,6 +122,9 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin,generic.CreateView):
         return "/leads"
 
     def form_valid(self, form):
+        lead = form.save(commit=False)
+        lead.organization = self.request.user.userprofile
+        lead.save()
         send_mail(
             subject="A Lead has been created successfully",
             message=" Check all Leads in The DJ-CRM  to see the new lead",
@@ -324,7 +327,7 @@ class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
         return queryset
 
     def get_success_url(self):
-        return reverse("leads:lead-detail", kwargs={"pk": self.get_object().id})
+        return reverse("leads:lead_detail", kwargs={"pk": self.get_object().id})
 
     def form_valid(self, form):
         lead_before_update = self.get_object()

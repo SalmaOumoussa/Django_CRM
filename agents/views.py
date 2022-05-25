@@ -5,6 +5,7 @@ from leads.models import Agent
 from .forms import AgentModelForm
 from django.contrib.auth.mixins import  LoginRequiredMixin
 from .mixins import OrganisorAndLoginRequiredMixin
+from django.core.mail import send_mail
 
 class AgentListView(OrganisorAndLoginRequiredMixin, generic.ListView):
     template_name = "agents/agent_list.html"
@@ -21,7 +22,7 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         return reverse("agents:agent_list")
 
     def form_valid(self, form):
-        agent = form.save(commit=False)
+        user = form.save(commit=False)
         user.is_agent = True
         user.is_organisor = False
         user.set_password(f"{random.randint(0,100000)}")

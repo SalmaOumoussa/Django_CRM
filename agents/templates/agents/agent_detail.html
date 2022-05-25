@@ -1,8 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<div class="p-6">
-  <div class="bg-white flex flex-col font-sans">
-    <div class="container mx-auto px-8">
-      {%include "navbar.html"%}
+
       <a href="{% url 'agents:agent_list' %}">Go back to Agents</a>
       <hr />
       <!-- component -->
