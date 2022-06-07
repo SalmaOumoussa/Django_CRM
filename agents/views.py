@@ -1,7 +1,7 @@
 import random
 from django.views import generic
-from django.shortcuts import reverse
-from leads.models import Agent
+from django.shortcuts import reverse,render,redirect
+from leads.models import Agent, User
 from .forms import AgentModelForm
 from django.contrib.auth.mixins import  LoginRequiredMixin
 from .mixins import OrganisorAndLoginRequiredMixin
@@ -47,20 +47,32 @@ class AgentDetailView(OrganisorAndLoginRequiredMixin,generic.DetailView):
         return Agent.objects.all()
     
 
-class AgentUpdateView(OrganisorAndLoginRequiredMixin,generic.UpdateView):
-    template_name = "agents/agent_update.html"
-    queryset =Agent.objects.all()
-    form_class = AgentModelForm
-    context_object_name = "agent"
+# class AgentUpdateView(OrganisorAndLoginRequiredMixin,generic.UpdateView):
+#     template_name = "agents/agent_update.html"
+#     # queryset =Agent.objects.all()
+#     form_class = AgentModelForm
+#     # context_object_name = "agent"
     
-    def get_queryset(self):
-        organization = self.request.user.userprofile
-        return Agent.objects.filter(organization =organization )
+#     def get_queryset(self):
+#         organization = self.request.user.userprofile
+#         return Agent.objects.filter(organization =organization )
 
-    def get_success_url(self):
-         return "/Agents"
+#     def get_success_url(self):
+#         return reverse("agents:agent_list")
 
-
+def AgentUpdateViewFunc(request, pk):
+    print("AgentUpdateView")
+    agent = Agent.objects.get(pk=pk)
+    user = User.objects.get(pk=agent.user.id)
+    form = AgentModelForm(request.POST or None, instance=user)
+    if form.is_valid():
+        form.save()
+        return redirect("agents:agent_list")
+    context = {
+        "form": form,
+        "agent": agent
+    }
+    return render(request, "agents/agent_update.html", context)
 
 class AgentDeleteView(OrganisorAndLoginRequiredMixin,generic.DeleteView):
     template_name = "agents/agent_delete.html"

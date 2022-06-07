@@ -15,14 +15,7 @@
         </h1>
         <form method="post" class="mt-5">
           {% csrf_token %} {{ form|crispy }}
-          <div
-          class="w-1/4 text-white bg-gray-400 hover:bg-gray-500 px-3 py-2 rounded-md"
-          >
-            <a
-            href="{% url 'leads:lead_list'%}"
-          >
-            Cancel
-        </a>
+         
           </div>
           <button
             type="submit"

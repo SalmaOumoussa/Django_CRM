@@ -35,9 +35,9 @@ class LeadListView(LoginRequiredMixin,generic.ListView):
         user = self.request.user
         #initial queryset of leads for the entire organization 
         if user.is_organisor:
-            queryset = Lead.objects.filter(organization = user.userprofile )
+            queryset = Lead.objects.filter(organization = user.userprofile, agent__isnull=False )
         else:
-            queryset = Lead.objects.filter(organization = user.agent.organization )
+            queryset = Lead.objects.filter(organization = user.agent.organization , agent__isnull=False )
         # filtrer  for the agentlogged in 
             queryset = queryset.filter(agent__user=user)
         return queryset
@@ -48,7 +48,7 @@ class LeadListView(LoginRequiredMixin,generic.ListView):
         if user.is_organisor:
             queryset = Lead.objects.filter(
                 organization=user.userprofile, 
-                agent__isnull=True
+                agent__isnull=  True
             )
             context.update({
                 "unassigned_leads": queryset
@@ -329,17 +329,17 @@ class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
     def get_success_url(self):
         return reverse("leads:lead_detail", kwargs={"pk": self.get_object().id})
 
-    def form_valid(self, form):
-        lead_before_update = self.get_object()
-        instance = form.save(commit=False)
-        converted_category = Category.objects.get(name="Converted")
-        if form.cleaned_data["category"] == converted_category:
-            # update the date at which this lead was converted
-            if lead_before_update.category != converted_category:
-                # this lead has now been converted
-                instance.converted_date = datetime.datetime.now()
-        instance.save()
-        return super(LeadCategoryUpdateView, self).form_valid(form)
+    # def form_valid(self, form):
+    #     lead_before_update = self.get_object()
+    #     instance = form.save(commit=False)
+    #     converted_category = Category.objects.get(name="Converted")
+    #     if form.cleaned_data["category"] == converted_category:
+    #         # update the date at which this lead was converted
+    #         if lead_before_update.category != converted_category:
+    #             # this lead has now been converted
+    #             instance.converted_date = datetime.datetime.now()
+    #     instance.save()
+    #     return super(LeadCategoryUpdateView, self).form_valid(form)
 
 
 
@@ -360,7 +360,7 @@ def lead_update(request,pk):
     }
     return render(request,"leads/lead_update.html",context)
 
-class LeadUpdateView(LoginRequiredMixin,generic.UpdateView):
+class LeadUpdateView(OrganisorAndLoginRequiredMixin,generic.UpdateView):
     template_name = "leads/lead_update.html"
     queryset =Lead.objects.all()
     form_class = LeadModelForm
